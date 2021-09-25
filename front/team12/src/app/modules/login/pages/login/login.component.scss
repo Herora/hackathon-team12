@@ -1,26 +1,56 @@
 @import "./../../../../../assets/styles/variables";
+@import "./../../../../../assets/styles/stylesTeam";
 
 .c-Login{
+    width: 100vw;
+    height: 100vh;
+    background-color: $c4;
     .login{
         -webkit-box-shadow: 6px 7px 16px 4px rgba(0,0,0,0.67); 
         box-shadow: 6px 7px 16px 4px rgba(0,0,0,0.67);
-        width: 100vw;
-        height: 100vh;
         background-color: $c1;
+        .potho{
+            width: 100vw;
+            background-color: $c1;
+            display: flex;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            justify-content: center;
+            img{
+                border-radius: 50%;
+                width: 250px;
+                height: 250px;
+            }
+        }
+        .form{
+            width: 100vw;
+            height: 65vh;
+            background-color: $c5;
+        }
     }
 }
 
-// @media only screen and (max-width: $medium) {
-//     .c-Login{
-//         .login{
-            
-//             }
-//         }
-// }
-// @media only screen and (max-width: $large) {
-//     .c-Login{
-//         .login{
-            
-//             }
-//         }
-// }
+@media only screen and (min-width: $medium) and (min-width: $large){
+    .c-Login{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .login{
+            display: flex;
+            width: 65vw;
+            .potho{
+                width: 100vw;
+                height: 50vh;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+            .form{
+                width: 100vw;
+                height: 50vh;
+            }
+        }
+    }
+}
