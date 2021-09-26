@@ -1,0 +1,45 @@
+<app-templates>
+    <div class="registry" content>
+
+        <h3 class="registry__title">
+            Registrar 
+        </h3>
+        <form [formGroup]="formGroup" *ngIf="formGroup" class="registry__form">
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>País</mat-label>
+                <mat-select formControlName="country">
+                    <mat-option value="{{country.alpha2Code}}" *ngFor="let country of countries">{{ country.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>LinkedIn</mat-label>
+                <input matInput formControlName="linkedin">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Ingresar contraseña nuevamente</mat-label>
+                <input matInput formControlName="confirmPassword">
+            </mat-form-field>
+            <mat-form-field class="registry__form__description">
+                <mat-label>Ingresa una breve descripción</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+            <div class="registry__form__buttons">
+                <button mat-button class="btn_registry">Registrar</button>
+                <button mat-button class="btn_cancel" [routerLink]="['/']">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</app-templates>

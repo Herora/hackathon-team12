@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { HeaderComponent } from './header/header.component';
+import { CountriesService } from './services/CountriesServices/countries.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -13,12 +15,16 @@ import { HeaderComponent } from './header/header.component';
     HeaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [
     FooterComponent,
     AuthenticationComponent,
     HeaderComponent
+  ],
+  providers: [
+    CountriesService
   ]
 })
 export class CoreModule { }
