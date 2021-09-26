@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+
 var bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
+const empresaSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -14,13 +15,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  repository: {
+  site: {
     type: String,
-    required: true, 
+    required: true,
   },
   email: {
     type: String,
-    unique: true,
     required: true,
   },
   description: {
@@ -42,16 +42,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const Empresa = mongoose.model("Empresa", empresaSchema);
 
-User.prototype.encryptPassword = async function (password) {
+Empresa.prototype.encryptPassword = async function (password) {
   const salt = await bcrypt.genSalt(10);
   this.salt = salt;
   return bcrypt.hash(password, this.salt);
 };
 
-User.prototype.validPassword = async function (passwordEnLogin) {
+Empresa.prototype.validPassword = async function (passwordEnLogin) {
   return this.password === (await bcrypt.hash(passwordEnLogin, this.salt));
 };
 
-module.exports = User;
+module.exports = Empresa;
