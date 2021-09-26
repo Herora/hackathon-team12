@@ -50,6 +50,10 @@
                     }
                 }
             }
+            
+            &__form {
+                min-height: 418px;
+            }
         }
     }
     @include brp($large, min) {

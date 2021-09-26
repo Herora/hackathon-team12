@@ -1,58 +1,45 @@
-@import "./../../../../../assets/styles/variables";
-@import "./../../../../../assets/styles/stylesTeam";
-
-.c-Login{
-    width: 100vw;
-    height: 100vh;
-    background-color: $c4;
-    .login{
-        -webkit-box-shadow: 6px 7px 16px 4px rgba(0,0,0,0.67); 
-        box-shadow: 6px 7px 16px 4px rgba(0,0,0,0.67);
-        background-color: $c1;
-        .potho{
-            width: 100vw;
-            background-color: $c1;
-            display: flex;
-            padding-top: 50px;
-            padding-bottom: 50px;
-            justify-content: center;
-            img{
-                border-radius: 50%;
-                width: 200px;
-                height: 200px;
-            }
-        }
-        .form{
-            width: 100vw;
-            height: 65vh;
-            background-color: $c5;
+@import "src/assets/styles/instance";
+.login {
+    height: 100%;
+    &__photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        img {
+            @include whs(150px);
+            @include border-radius(50%);
         }
     }
-}
-
-@media only screen and (min-width: $medium) and (min-width: $large){
-    .c-Login{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .login{
+    &__title {
+        color: $c4;
+        text-align: center;
+        font-weight: 600;
+        font-size: 20px;
+    }
+    &__form {
+        display: grid;
+        gap: 10px;
+        &__slide {
+            text-align: end;
+            margin-bottom: 15px;
+            color: $c4;
+            font-weight: 600;
+        }
+        &__buttons {
             display: flex;
-            width: 40vw;
-            height: 45vh;
-            .potho{
-                height: 100%;
-                justify-content: center;
-                align-items: center;
-                display: flex;
-                padding-top: 0px;
-                padding-bottom: 0px;
-                padding-left: 30px;
-                padding-right: 30px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            color: $c6;
+            .btn_company,
+            .btn_user {
+                background-color: #f34949;
+                margin-right: 10px;
             }
-            .form{
-                height: 100%;
-                padding-left: 30px;
-                padding-right: 30px;
+            .btn_login {
+                background-color: $c4;
+                margin-right: 10px;
             }
         }
     }

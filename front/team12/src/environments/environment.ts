@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  api: '',
   countriesApi: 'https://restcountries.com/v2/all'
 };
 

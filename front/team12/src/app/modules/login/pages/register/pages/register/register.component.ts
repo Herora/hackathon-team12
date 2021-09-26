@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from 'src/app/core/models/countries/countries';
-import { CountriesService } from 'src/app/core/services/CountriesServices/countries.service';
+import { CountriesService } from 'src/app/core/services/countriesServices/countries.service';
 
 @Component({
   selector: 'app-register',
@@ -12,9 +12,12 @@ export class RegisterComponent implements OnInit {
 
   public formGroup?: FormGroup;
   public countries: Country[] = [];
-  constructor(private fb: FormBuilder, private coutriesServices: CountriesService) { }
+  private isCompany: boolean = false;
+  constructor(private fb: FormBuilder,
+              private coutriesServices: CountriesService) { }
 
   ngOnInit(): void {
+    this.isCompany = sessionStorage.getItem('isCompany') === 'true';
     this.formGroup = this.fb.group({
       name: new FormControl(null, [ Validators.required ]),
       email: new FormControl(null, [ Validators.required ]),

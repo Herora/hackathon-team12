@@ -1,4 +1,4 @@
-<div class="c-Login">
+<!-- <div class="c-Login">
     <div class="login">
         <div class="potho">
             <img src="./../../../../../assets/img/gentleman.jpg" alt="">
@@ -7,4 +7,33 @@
 
         </div>
     </div>
-</div>
+</div> -->
+
+<app-templates>
+    <div class="login" content>
+        <div class="login__photo">
+            <img src="./../../../../../assets/img/gentleman.jpg" alt="">
+        </div>
+        <h3 class="login__title">
+            Iniciar Session 
+        </h3>
+        <form [formGroup]="formGroup" *ngIf="formGroup" class="login__form">
+            <mat-form-field>
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field>
+            <div class="login__form__slide">
+                <mat-slide-toggle [labelPosition]="'before'" formControlName="iscompany">Empresa</mat-slide-toggle>
+            </div>
+            <div class="login__form__buttons">
+                <button mat-button class="btn_login" (click)="clickLogin()">Ingresar</button>
+                <button mat-button class="btn_user" (click)="clickRegister(false)">Registrar usuario</button>
+                <button mat-button class="btn_company" (click)="clickRegister(true)">Registrar empresa</button>
+            </div>
+        </form>
+    </div>
+</app-templates>

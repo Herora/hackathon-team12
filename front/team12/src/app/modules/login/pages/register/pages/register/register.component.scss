@@ -24,17 +24,6 @@
             }
         }
     }
-    // @include brp($medium, min) {
-    //     &__form {
-    //         grid-template-columns: repeat(2, calc(50% - 5px));
-    //         &__description {
-    //             grid-column: 1 / 3;
-    //         }
-    //         &__buttons {
-    //             grid-column: 1 / 3;
-    //         }
-    //     }
-    // }
     
     
     @include brp($large, min) {
