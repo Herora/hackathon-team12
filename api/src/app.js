@@ -1,11 +1,12 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors');
 const routes = require("./routes");
-const app = express()
+const app = express();
 require("./config/db");
 require('dotenv').config()
 
-//app.use(cors())
+app.use(cors());
 
 // Middleware de parseo
 app.use(express.json());
