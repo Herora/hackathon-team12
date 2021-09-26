@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const UserRegisterController = require("../controllers/userRegister");
-const UserLoginController = require("../controllers/userLogin");
+const UserController = require("../controllers/user");
 
-router.post("/register", UserRegisterController.create);
+router.post("/register", UserController.register);
+router.post("/login", UserController.login);
 
-router.post("/login", UserLoginController.find);
-
+//agregar el middleware de auth
 router.get("/welcome", (req, res) => {
   res.status(200).send("Bienvenido");
 });
