@@ -13,11 +13,6 @@ app.use(express.json());
 // Middleware de logeo
 app.use(morgan("tiny"));
 
-
-app.get("/", (req, res) => {
-    res.send("Hola")
-})
-
 // Middleware de rutas
 app.use("/api", routes);
 
