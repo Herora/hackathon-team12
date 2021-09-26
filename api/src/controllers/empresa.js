@@ -28,8 +28,10 @@ const EmpresaController = {
         return res.status(401).send("Password invalido");
       }
 
-      const token = jwt.sign({ _id: empresa._id }, "team-12");
-      return res.status(200).json({ token, empresa });
+      const token = jwt.sign({ _id: empresa._id }, "team-12", {
+        expiresIn: "1d"
+      });
+      return res.status(200).json({ token, user: empresa });
     });
   },
   createBootcamp(req, res) {
@@ -51,23 +53,27 @@ const EmpresaController = {
   },
   findAll(req, res) {
     //creo que son 2 rutas, una para los bootcamps propios y otros para los de las otras empresas
-    // const bootcamps = await Bootcamp.find({})
-    // res.json(bootcamps)
+    Bootcamp.find()
+      .populate("empresa")
+      .then((bootcamps) => res.send(bootcamps).status(200))
+      .catch((e) => res.send(e).status(400));
+  },
+  findMyBootcamps(req, res) {
+    Empresa.findById(req.params.id)
+      .populate("bootcamps")
+      .then((emp) => {
+        res.send(emp.bootcamps);
+      });
+  },
+  update(req, res) {
+    Bootcamp.findByIdAndUpdate(req.params.id, req.body)
+      .then((bootcamp) => res.send(bootcamp).status(200))
+      .catch((e) => res.send(e).status(500));
   },
   delete(req, res) {
-    //enviar info en el body para obtener la empresa
-  //   let empresa = {};
-  //   Empresa.findById(req.body.empresa).then((emp) => {
-  //     empresa = emp;
-  //   });
-  //   empresa.bootcamps = empresa.bootcamps.filter(bootcamp => bootcamp != bootcamp.id)
-  //   empresa.save()
-    
-  //   Bootcamp.deleteOne({ _id: req.params.id })
-  //     .then(() => {
-  //       res.sendStatus(200)
-  //     })
-  //     .catch((e) => res.send(e));
+    Bootcamp.deleteOne({_id: req.params.id})
+      .then(() => res.send(200))
+      .catch((e) => res.send(e));
   },
 };
 

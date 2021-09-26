@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { populate } = require("../models/Bootcamp");
 const Bootcamp = require("../models/Bootcamp");
 const User = require("../models/User");
 
@@ -28,20 +29,39 @@ const UserController = {
         return res.status(401).send("Password invalido");
       }
 
-      const token = jwt.sign({ _id: user._id }, "team-12");
-      return res.status(200).json({ token, user, isUser: true });
+      const token = jwt.sign({ _id: user._id }, "team-12", {
+        expiresIn: "1d"
+      });
+      return res.status(200).json({ token, user });
     });
   },
   findAll(req, res) {
     Bootcamp.find()
-    .populate("empresa")
+      .populate("empresa")
       .then((bootcamps) => res.send(bootcamps).status(200))
       .catch((e) => res.send(e).status(400));
   },
   add(req, res) {
+    //acá podría agregarlo por su params id
     User.findOne({ email: req.body.email }).then((user) => {
       user.bootcamps.push(req.params.id);
       user.save();
+    });
+    res.sendStatus(201);
+  },
+  findMyBootcamps(req, res) {
+    User.findById(req.params.id)
+      .populate("bootcamps")
+      .then((emp) => {
+        res.send(emp.bootcamps);
+      });
+  },
+  remove(req, res) {
+    User.findById(req.params.id).then((user) => {
+      console.log(user)
+      //seguir
+      // user.bootcamps.push(req.params.id);
+      // user.save();
     });
     res.sendStatus(201);
   },
