@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { TemplatesModule } from './components/templates/templates.module';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { TemplatesModule } from './components/templates/templates.module';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    TemplatesModule
+    TemplatesModule,
+    SharedModule
   ],
   exports: [
     LoginComponent
