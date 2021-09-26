@@ -4,12 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { CountriesService } from './services/countriesServices/countries.service';
+import { CountriesService } from './services/countryServices/countries.service';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { JwtService } from './services/JwtService/jwt.service';
 import { LoginService } from './services/loginServices/login.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { UserService } from './services/userService/user.service';
 
 const tokenGetter = () => {
   return sessionStorage.getItem('token');
@@ -39,7 +40,8 @@ const tokenGetter = () => {
   providers: [
     CountriesService,
     LoginService,
-    JwtService
+    JwtService,
+    UserService
   ]
 })
 export class CoreModule { }

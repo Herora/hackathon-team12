@@ -15,8 +15,12 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): boolean {
       const token = sessionStorage.getItem('token');
       let result = token ? this.jwt.getTokenExpired(token) : false;
-      console.log(next);
+      if (token) {
+        console.log(this.jwt.getTokenPayload(token), next, state);
+      }
+      result = token ? true : false;
       if (!result) {
+        sessionStorage.clear();
         this.router.navigate(['/']);
       }
     return result;

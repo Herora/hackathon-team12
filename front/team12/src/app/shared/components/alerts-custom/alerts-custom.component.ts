@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertsCustom } from 'src/app/core/models/alerts-custom/alerts-custom';
+import { AlertsCustomService } from 'src/app/core/services/alertsCustom/alerts-custom.service';
 
 @Component({
   selector: 'app-alerts-custom',
@@ -7,11 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlertsCustomComponent implements OnInit {
 
-  public viewAlert = false;
+  public viewAlert?: AlertsCustom;;
 
-  constructor() { }
+  constructor(private alert: AlertsCustomService) {
+    alert.OnAlertCustom.subscribe((alert: AlertsCustom) => {
+      this.viewAlert = alert;
+      // this.delay();
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  private delay() {
+    setTimeout(() => {
+      this.viewAlert = undefined;
+    }, 2000);
   }
 
 }

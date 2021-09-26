@@ -2,7 +2,7 @@
     <div class="registry" content>
 
         <h3 class="registry__title">
-            Registrar 
+            Registrar {{ isCompany ? 'empresa' : 'usuario' }}
         </h3>
         <form [formGroup]="formGroup" *ngIf="formGroup" class="registry__form">
             <mat-form-field>
@@ -24,20 +24,34 @@
                 <mat-label>LinkedIn</mat-label>
                 <input matInput formControlName="linkedin">
             </mat-form-field>
-            <mat-form-field>
-                <mat-label>Contraseña</mat-label>
-                <input matInput formControlName="password">
+            <mat-form-field *ngIf="isCompany">
+                <mat-label>Pagina web</mat-label>
+                <input matInput formControlName="site">
+            </mat-form-field>
+            <mat-form-field *ngIf="!isCompany">
+                <mat-label>Repositorio</mat-label>
+                <input matInput formControlName="repository">
             </mat-form-field>
             <mat-form-field>
-                <mat-label>Ingresar contraseña nuevamente</mat-label>
-                <input matInput formControlName="confirmPassword">
+                <mat-label>Contraseña</mat-label>                                
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Ingresar contraseña nuevamente</mat-label>                       
+                <input matInput [type]="hide2 ? 'password' : 'text'" formControlName="confirmPassword">
+                <button mat-icon-button matSuffix (click)="hide2 = !hide2">
+                    <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
             </mat-form-field>
             <mat-form-field class="registry__form__description">
                 <mat-label>Ingresa una breve descripción</mat-label>
                 <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
             <div class="registry__form__buttons">
-                <button mat-button class="btn_registry">Registrar</button>
+                <button mat-button class="btn_registry" (click)="clickRegistry()">Registrar</button>
                 <button mat-button class="btn_cancel" [routerLink]="['/']">Cancelar</button>
             </div>
         </form>

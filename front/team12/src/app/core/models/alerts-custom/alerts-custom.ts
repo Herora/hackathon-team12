@@ -1,13 +1,16 @@
 export interface IAlertsCustom {
     title: string;
-    menssage: string;
+    message: string;
+    type?: 'info' | 'alert' | 'danger' | 'success';
 }
 
 export class AlertsCustom implements IAlertsCustom {
-    title: string;
-    menssage: string;
+    public title: string;
+    public message: string;
+    public type?: 'info' | 'alert' | 'danger' | 'success';
     constructor(alert: IAlertsCustom) {
         this.title = alert.title;
-        this.menssage = alert.menssage;
+        this.message = alert.message;
+        this.type = alert.type;
     }
 }
