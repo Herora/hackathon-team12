@@ -29,7 +29,7 @@ export abstract class BaseHttpService<TModel> {
     }
 
     public post(endPoint: string, object: TModel): Observable<TModel> {
-            const apiUrl = endPoint;
+            const apiUrl = `${this.apiRoot}${endPoint}`;
             return this.http.post<TModel>(apiUrl, object, { headers: this.headers });
     }
 

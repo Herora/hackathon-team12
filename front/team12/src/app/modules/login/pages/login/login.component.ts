@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
+import { Login } from 'src/app/core/models/login/login';
+import { LoginService } from 'src/app/core/services/loginServices/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ export class LoginComponent implements OnInit {
   public formGroup?: FormGroup;
 
   constructor(private router: Router,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private loginService: LoginService) { }
 
   ngOnInit(): void {
     
@@ -30,6 +33,15 @@ export class LoginComponent implements OnInit {
 
   public clickLogin() {
     console.log(this.formGroup?.value, this.formGroup?.valid);
+    if (this.formGroup?.valid) {
+      const login: Login = {
+        email: this.formGroup?.get('email')?.value,
+        password: this.formGroup?.get('password')?.value
+      };
+      this.loginService.post(`api/${this.formGroup?.controls['iscompany'].value ? 'empresa' : 'user' }/login`, login).subscribe((login) => {
+        console.log(login);
+      });
+    }
   }
 
 }

@@ -1,0 +1,21 @@
+@import "./src/assets/styles/instance.scss";
+.alert {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__content {
+        background-color: $c2;
+        min-width: 100%;
+        @include border-radius(0 0 8px 8px);
+        @include box-shadow(0px 1px 5px 0px rgba(0,0,0,0.26));
+        min-height: 40px;
+    }
+    @include brp($medium, min) {
+        &__content {
+            min-width: 60%;
+        }
+    }
+}
