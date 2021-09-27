@@ -10,6 +10,7 @@ router.get("/", EmpresaController.findAll);
 router.get("/:id", EmpresaController.findMyBootcamps);
 router.put("/:id", EmpresaController.update);
 router.delete("/:id", EmpresaController.delete)
+router.get("/bootcamp/:idBC", EmpresaController.getUsers)
 
 // router.post("/:id", EmpresaController.eliminar)
 

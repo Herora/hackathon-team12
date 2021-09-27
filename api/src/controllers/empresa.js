@@ -53,7 +53,7 @@ const EmpresaController = {
     const bootcamp = new Bootcamp({
       title: req.body.title,
       description: req.body.description,
-      empresa: empresa._id
+      empresa: empresa._id,
     });
 
     const savedBootcamp = await bootcamp.save();
@@ -87,6 +87,14 @@ const EmpresaController = {
       .then(() => res.send(200))
       .catch((e) => res.send(e));
   },
+  getUsers(req, res) {
+    Bootcamp.findById(req.params.idBC)
+    .populate("users")
+    .then((bootcamp) => {
+      console.log(bootcamp)
+      res.send(bootcamp.users);
+    });
+  }
 };
 
 module.exports = EmpresaController;

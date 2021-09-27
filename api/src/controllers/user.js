@@ -1,12 +1,8 @@
 const jwt = require("jsonwebtoken");
-const { populate } = require("../models/Bootcamp");
 const Bootcamp = require("../models/Bootcamp");
 const User = require("../models/User");
 
-//const KEY = process.env.KEY // no sé porque no lo toma
-
 const UserController = {
-  //agregar todas las validaciones y el status que va
   register(req, res) {
     User.create(req.body)
       .then(async (user) => {
@@ -42,16 +38,21 @@ const UserController = {
       .catch((e) => res.send(e).status(400));
   },
   add(req, res) {
-    //acá podría agregarlo por su params id
-    User.findOne({ email: req.body.email }).then((user) => {
+    User.findById(req.body.userId).then((user) => {
+      console.log("US", user);
       user.bootcamps.push(req.params.id);
       user.save();
+    });
+    Bootcamp.findById(req.params.id).then((bootcamp) => {
+      console.log("BC", bootcamp);
+      bootcamp.users.push(req.body.userId);
+      bootcamp.save();
     });
     res.sendStatus(201);
   },
   findMyBootcamps(req, res) {
     User.findById(req.params.id)
-      .populate("bootcamps")
+      .populate({ path: "bootcamps", populate: { path: "empresa" } })
       .then((user) => {
         res.send(user.bootcamps);
       });
@@ -62,6 +63,7 @@ const UserController = {
       //seguir
       // user.bootcamps.push(req.params.id);
       // user.save();
+      // no completado
       user.bootcamps = user.bootcamps.filter(
         (bootcamp) => bootcamp._id !== req.body.bootcampId
       );
