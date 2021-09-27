@@ -53,7 +53,7 @@ const EmpresaController = {
     const bootcamp = new Bootcamp({
       title: req.body.title,
       description: req.body.description,
-      empresa: empresa._id
+      empresa: empresa._id,
     });
 
     const savedBootcamp = await bootcamp.save();
