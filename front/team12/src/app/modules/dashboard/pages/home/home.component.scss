@@ -1,0 +1,74 @@
+@import "./src/assets/styles/instance.scss";
+.home {
+    &__title {
+        text-align: center;
+        font-weight: 500;
+        font-size: 28px;
+        margin-top: 15px;
+        color: $c4;
+    }
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        &__add {
+            margin-left: 10px;
+            button {
+                background-color: $c3;
+            }
+            label {
+                display: none;
+            }
+        }
+    }
+    &__containers {
+        padding-left: 15px;
+        padding-right: 15px;
+        &__bootcamp {
+            margin-bottom: 15px;
+        }
+    }
+    &__create_bootcamp {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        &__bootcamp{
+            width: 500px;
+        }
+    }
+    @include brp($medium, min) {
+        &__actions {
+            &__add {
+                display: flex;
+                align-items: center;
+                button {
+                    margin-right: 10px;
+                }
+                label {
+                    display: block;
+                    color: $c4;
+                    font-weight: 500;
+                }
+            }
+        }
+        &__containers {
+            // text-align: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 500px);
+            gap: 10px;
+            justify-content: center;
+            &__bootcamp {
+                margin-bottom: 0px;
+                // display: inline-block;
+                // width: 500px;
+                // margin-right: 10px;
+                // margin-bottom: 10px;
+                // text-align: left;
+            }
+        }
+    }
+}
+
