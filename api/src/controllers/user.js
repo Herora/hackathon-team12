@@ -43,15 +43,22 @@ const UserController = {
   },
   add(req, res) {
     //acá podría agregarlo por su params id
-    User.findOne({ email: req.body.email }).then((user) => {
+    User.findById(req.body.userId).then((user) => {
+      console.log("US", user);
       user.bootcamps.push(req.params.id);
       user.save();
+    });
+    Bootcamp.findById(req.params.id).then((bootcamp) => {
+      console.log("BC", bootcamp);
+      bootcamp.users.push(req.body.userId);
+      bootcamp.save();
     });
     res.sendStatus(201);
   },
   findMyBootcamps(req, res) {
     User.findById(req.params.id)
-      .populate("bootcamps")
+      // .populate("bootcamps")
+      .populate({ path: "bootcamps", populate: { path: "empresa" } })
       .then((user) => {
         res.send(user.bootcamps);
       });
