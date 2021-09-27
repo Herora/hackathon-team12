@@ -29,27 +29,38 @@ const EmpresaController = {
       }
 
       const token = jwt.sign({ _id: empresa._id }, "team-12", {
-        expiresIn: "1d"
+        expiresIn: "1d",
       });
       return res.status(200).json({ token, user: empresa });
     });
   },
-  createBootcamp(req, res) {
-    let empresa = {};
-    Empresa.findById(req.body.empresa).then((emp) => {
-      empresa = emp;
+  async createBootcamp(req, res) {
+    // let empresa = {};
+    // Empresa.findById(req.body.empresaId).then((emp) => {
+    //   empresa = emp;
+    //   Bootcamp.create(req.body)
+    //     .then(async (bootcamp) => {
+    //       bootcamp.save();
+    //       empresa.bootcamps = empresa.bootcamps.concat(bootcamp._id);
+    //       await empresa.save();
+
+    //       res.send(savedBootcamp);
+    //     })
+    //     .catch((e) => res.send(e));
+    // });
+    const empresa = await Empresa.findById(req.params.id);
+
+    const bootcamp = new Bootcamp({
+      title: req.body.title,
+      description: req.body.description,
+      empresa: empresa._id
     });
 
-    Bootcamp.create(req.body)
-      .then(async (bootcamp) => {
-        const savedBootcamp = bootcamp;
-        bootcamp.save();
-        empresa.bootcamps = empresa.bootcamps.concat(savedBootcamp._id);
-        await empresa.save();
+    const savedBootcamp = await bootcamp.save();
+    empresa.bootcamps = empresa.bootcamps.concat(savedBootcamp._id);
+    await empresa.save();
 
-        res.send(savedBootcamp);
-      })
-      .catch((e) => res.send(e));
+    res.send(savedBootcamp);
   },
   findAll(req, res) {
     //creo que son 2 rutas, una para los bootcamps propios y otros para los de las otras empresas
@@ -71,7 +82,8 @@ const EmpresaController = {
       .catch((e) => res.send(e).status(500));
   },
   delete(req, res) {
-    Bootcamp.deleteOne({_id: req.params.id})
+    //probar este otro
+    Bootcamp.deleteOne({ _id: req.params.id })
       .then(() => res.send(200))
       .catch((e) => res.send(e));
   },
