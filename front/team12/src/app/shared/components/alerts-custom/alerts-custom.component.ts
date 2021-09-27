@@ -14,7 +14,7 @@ export class AlertsCustomComponent implements OnInit {
   constructor(private alert: AlertsCustomService) {
     alert.OnAlertCustom.subscribe((alert: AlertsCustom) => {
       this.viewAlert = alert;
-      // this.delay();
+      this.delay();
     });
   }
 

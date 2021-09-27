@@ -1,1 +1,22 @@
-<p>home works!</p>
+<div class="home">
+    <h3 class="home__title">Bootcamps</h3>
+    <div class="home__actions">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (change)="changeHome($event)">
+            <mat-button-toggle value="1" checked>Todos los bootcamps</mat-button-toggle>
+            <mat-button-toggle value="2">Mis bootcamps</mat-button-toggle>
+            <!-- <mat-button-toggle value="3" *ngIf="isCompany">Crear bootcamp</mat-button-toggle> -->
+        </mat-button-toggle-group>
+        <div class="home__actions__add">
+            <button mat-mini-fab type="button" *ngIf="isCompany" (click)="createBootcamp = true;"><mat-icon>add</mat-icon></button>
+            <label> Agregar bootcamp</label>
+        </div>
+    </div>
+    <div class="home__create_bootcamp" *ngIf="createBootcamp">
+        <app-bootcamp [create]='createBootcamp' class="home__create_bootcamp__bootcamp" (resultBootcamp)="actionBootcamp($event)"></app-bootcamp>
+    </div>
+    <div class="home__containers">
+        <div class="home__containers__bootcamp" *ngFor="let bootcamp of bootcamps">
+            <app-bootcamp [bootcamp]='bootcamp' [actions]="actionSearch === '2'"  (resultBootcamp)="actionBootcamp($event)"></app-bootcamp>
+        </div>
+    </div>
+</div>

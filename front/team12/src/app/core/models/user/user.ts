@@ -7,6 +7,7 @@ export interface IUser {
     country: string;
     repository?: string;
     site?: string;
+    _id?: string;
 }
 
 export class User implements IUser {
@@ -18,6 +19,7 @@ export class User implements IUser {
     country: string;
     repository?: string;
     site?: string;
+    _id?: string;
 
     constructor(user: IUser) {
         this.name = user.name;;
@@ -28,5 +30,6 @@ export class User implements IUser {
         this.country = user.country;
         this.repository = user.repository;
         this.site = user.site;
+        this._id = user._id;
     }
 }

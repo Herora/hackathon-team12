@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Login } from 'src/app/core/models/login/login';
 import { AlertsCustomService } from 'src/app/core/services/alertsCustom/alerts-custom.service';
 import { LoginService } from 'src/app/core/services/loginServices/login.service';
@@ -40,11 +40,13 @@ export class LoginComponent implements OnInit {
         email: this.formGroup?.get('email')?.value,
         password: this.formGroup?.get('password')?.value
       };
+      console.log('hola');
       this.loginService.post(`api/${this.formGroup?.controls['iscompany'].value ? 'empresa' : 'user' }/login`, login).subscribe((login: Login) => {
-        // console.log(login);
         if (login.token) {
+          console.log(login);
           sessionStorage.setItem('token', login.token);
           sessionStorage.setItem('isCompany', this.formGroup?.controls['iscompany'].value);
+          localStorage.setItem('user', JSON.stringify(login.user));
           this.router.navigate(['/dashboard']);
         }
       }, error => {
