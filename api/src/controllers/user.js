@@ -30,7 +30,7 @@ const UserController = {
       }
 
       const token = jwt.sign({ _id: user._id }, "team-12", {
-        expiresIn: "1d"
+        expiresIn: "1d",
       });
       return res.status(200).json({ token, user });
     });
@@ -52,16 +52,20 @@ const UserController = {
   findMyBootcamps(req, res) {
     User.findById(req.params.id)
       .populate("bootcamps")
-      .then((emp) => {
-        res.send(emp.bootcamps);
+      .then((user) => {
+        res.send(user.bootcamps);
       });
   },
   remove(req, res) {
     User.findById(req.params.id).then((user) => {
-      console.log(user)
+      // console.log(user.bootcamps[0]._id);
       //seguir
       // user.bootcamps.push(req.params.id);
       // user.save();
+      user.bootcamps = user.bootcamps.filter(
+        (bootcamp) => bootcamp._id !== req.body.bootcampId
+      );
+      user.save();
     });
     res.sendStatus(201);
   },
