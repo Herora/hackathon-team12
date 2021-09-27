@@ -1,0 +1,83 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Bootcamp } from 'src/app/core/models/bootcamp/bootcamp';
+import { User } from 'src/app/core/models/user/user';
+import { AlertsCustomService } from 'src/app/core/services/alertsCustom/alerts-custom.service';
+import { BootcampService } from 'src/app/core/services/bootcampService/bootcamp.service';
+
+@Component({
+  selector: 'app-bootcamp',
+  templateUrl: './bootcamp.component.html',
+  styleUrls: ['./bootcamp.component.scss']
+})
+export class BootcampComponent implements OnInit {
+  @Input() bootcamp?: Bootcamp;
+  @Input() actions = false;
+  @Input() create = false;
+  @Output() public resultBootcamp = new EventEmitter<{ cancel?: boolean, load?: boolean }>();
+  
+  public user?: User;
+  public formGroup?: FormGroup;
+
+  constructor(private fb: FormBuilder,
+    private bootcamService: BootcampService,
+    private alertCustom: AlertsCustomService) {}
+
+  ngOnInit(): void {
+    const localUser = localStorage.getItem('user');
+    if (localUser) {
+      this.user = JSON.parse(localUser);
+    }
+    if (this.create) {
+      this.initFormGroup();
+    }
+  }
+
+  public initFormGroup(): void {
+    this.formGroup = this.fb.group({
+      title: new FormControl(this.bootcamp ? this.bootcamp.title : null, [Validators.required]),
+      description: new FormControl(this.bootcamp ? this.bootcamp.description : null, [Validators.required])
+    });
+  }
+
+  public actionCloseEdit(): void {
+    if (this.bootcamp) {
+      this.bootcamp.edit = false;
+    }
+    if (this.create) {
+      this.create = false;
+    }
+    this.resultBootcamp.emit({ cancel: true });
+  }
+
+  public bootcampSaveEdit(): void {
+    if (this.formGroup?.valid) {
+      this.selectEndPoint();
+    } else {
+      this.alertCustom.AlertCustom({ title: 'Alert', message: 'Por favor ingresar los datos correctamente', type: 'alert' });
+    }
+  }
+
+  private selectEndPoint(): void {
+    if (this.bootcamp?.edit) {
+      this.editBootcamp();
+    } else {
+      this.saveBootcamp();
+    }
+  }
+
+  private editBootcamp(): void {
+    this.bootcamService.put(`api/empresa/${this.user?._id}`, { title: this.formGroup?.get('title')?.value, description: this.formGroup?.get('description')?.value }).subscribe((res) => {
+      console.log(res);
+      this.resultBootcamp.emit({ cancel: true });
+    });
+  }
+
+  private saveBootcamp(): void {
+    this.bootcamService.post('api/empresa', { title: this.formGroup?.get('title')?.value, description: this.formGroup?.get('description')?.value, empresaid: this.user?._id }).subscribe((res) => {
+      console.log(res);
+      this.resultBootcamp.emit({ cancel: true });
+    });
+  }
+
+}

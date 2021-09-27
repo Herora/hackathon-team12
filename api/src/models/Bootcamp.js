@@ -13,6 +13,12 @@ const bootcampSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Empresa",
   },
+  users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 const Bootcamp = mongoose.model("Bootcamp", bootcampSchema);

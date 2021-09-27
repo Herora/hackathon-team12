@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     if (localUser) {
       this.user = JSON.parse(localUser);
     }
-    this.allBootcamps();
+    this.allBootcamps(true);
   }
 
   public changeHome(event: any): void {
@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
 
   private allBootcamps(id?: boolean): void {
     let url = `api/${this.isCompany ? 'empresa' : 'user' }${!id ? '/' + this.user?._id : ''}`;
+    console.log(url);
     this.bootcamService.get(url).subscribe((bootcamps: Bootcamp[]) => {
       this.bootcamps = bootcamps;
     });

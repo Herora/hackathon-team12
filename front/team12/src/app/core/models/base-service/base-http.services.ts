@@ -33,4 +33,9 @@ export abstract class BaseHttpService<TModel> {
             return this.http.post<TModel>(apiUrl, object, { headers: this.headers });
     }
 
+    public put(endPoint: string, object: TModel): Observable<TModel> {
+            const apiUrl = `${this.apiRoot}${endPoint}`;
+            return this.http.put<TModel>(apiUrl, object, { headers: this.headers });
+    }
+
 }

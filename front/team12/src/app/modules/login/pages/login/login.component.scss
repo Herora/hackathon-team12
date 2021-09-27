@@ -27,7 +27,7 @@
             font-weight: 600;
         }
         &__buttons {
-            display: flex;
+            display: contents;
             align-items: center;
             justify-content: center;
             width: 100%;
@@ -40,6 +40,13 @@
             .btn_login {
                 background-color: $c4;
                 margin-right: 10px;
+            }
+        }
+    }
+    @include brp($large, min) {
+        &__form {
+            &__buttons {
+                display: flex;
             }
         }
     }

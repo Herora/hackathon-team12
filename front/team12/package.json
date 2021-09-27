@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "heroku-front": "heroku git:remote -a hackaton-team12 &&git subtree push --prefix front heroku master"
   },
   "private": true,
   "dependencies": {
