@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BootcampComponent } from './components/bootcamp/bootcamp.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardRoutingModule,
     SharedModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule
   ]
 })

@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
   }
 
   private allBootcamps(id?: boolean): void {
+    this.bootcamps = [];
     let url = `api/${this.isCompany ? 'empresa' : 'user' }${!id ? '/' + this.user?._id : ''}`;
     console.log(url);
     this.bootcamService.get(url).subscribe((bootcamps: Bootcamp[]) => {
@@ -55,9 +56,7 @@ export class HomeComponent implements OnInit {
     if (event.cancel) {
       this.createBootcamp = false;
     }
-    if (event.load) {
-      this.allBootcamps(this.actionSearch === '1');
-    }
+    this.allBootcamps(this.actionSearch === '1');
   }
 
 }

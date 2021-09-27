@@ -27,5 +27,16 @@
                 width: 100%;
             }
         }
+        &__annotated {
+            text-align: end;
+            button {
+                background-color: $c2;
+                color: $c6;
+                &:disabled {
+                    background-color: rgba($c3, .7);
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }

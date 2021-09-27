@@ -28,14 +28,22 @@ export abstract class BaseHttpService<TModel> {
         return this.http.get<TModel[]>(apiUrl, { headers: this.headers });
     }
 
-    public post(endPoint: string, object: TModel): Observable<TModel> {
+    public post(endPoint: string, object: TModel, isAut: boolean = false): Observable<TModel> {
             const apiUrl = `${this.apiRoot}${endPoint}`;
+            this.applicationAuth(isAut);
             return this.http.post<TModel>(apiUrl, object, { headers: this.headers });
     }
 
-    public put(endPoint: string, object: TModel): Observable<TModel> {
+    public put(endPoint: string, object: TModel, isAut: boolean = false): Observable<TModel> {
             const apiUrl = `${this.apiRoot}${endPoint}`;
+            this.applicationAuth(isAut);
             return this.http.put<TModel>(apiUrl, object, { headers: this.headers });
+    }
+
+    public delete(endPoint: string, isAut: boolean = false): Observable<TModel> {
+            const apiUrl = `${this.apiRoot}${endPoint}`;
+            this.applicationAuth(isAut);
+            return this.http.delete<TModel>(apiUrl, { headers: this.headers });
     }
 
 }

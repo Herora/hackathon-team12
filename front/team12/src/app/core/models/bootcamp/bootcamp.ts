@@ -1,26 +1,31 @@
 import { User } from "../user/user";
 
 export interface IBootcamp {
-    title: string;
+    title?: string;
     description?: string;
     empresa?: User;
     _id?: string;
     edit?: boolean;
     empresaid?: string;
+    email?: string;
+    users?: string[] | User[];
 }
 
 export class Bootcamp implements IBootcamp {
-    title: string;
+    _id?: string;
+    title?: string;
     description?: string;
     empresa?: User;
-    _id?: string;
     edit?: boolean;
     empresaid?: string;
-    constructor(login: IBootcamp) {
-        this._id = login._id;
-        this.title = login.title;
-        this.description = login.description;
-        this.empresa = login.empresa;
-        this.edit = login.edit;
+    email?: string;
+    users?: string[] | User[];
+    constructor(bootcamp: IBootcamp) {
+        this._id = bootcamp._id;
+        this.title = bootcamp.title;
+        this.description = bootcamp.description;
+        this.empresa = bootcamp.empresa;
+        this.edit = bootcamp.edit;
+        this.users = bootcamp.users;
     }
 }

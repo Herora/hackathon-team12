@@ -18,12 +18,14 @@ export class BootcampComponent implements OnInit {
   
   public user?: User;
   public formGroup?: FormGroup;
+  public isCompany = false;
 
   constructor(private fb: FormBuilder,
     private bootcamService: BootcampService,
     private alertCustom: AlertsCustomService) {}
 
   ngOnInit(): void {
+    this.isCompany = sessionStorage.getItem('isCompany') === 'true';
     const localUser = localStorage.getItem('user');
     if (localUser) {
       this.user = JSON.parse(localUser);
@@ -67,17 +69,40 @@ export class BootcampComponent implements OnInit {
   }
 
   private editBootcamp(): void {
-    this.bootcamService.put(`api/empresa/${this.user?._id}`, { title: this.formGroup?.get('title')?.value, description: this.formGroup?.get('description')?.value }).subscribe((res) => {
+    this.bootcamService.put(`api/empresa/${this.bootcamp?._id}`, { title: this.formGroup?.get('title')?.value, description: this.formGroup?.get('description')?.value }).subscribe((res) => {
+      console.log(res);
+      this.resultBootcamp.emit({ load: true });
+    });
+  }
+
+  private saveBootcamp(): void {
+    this.bootcamService.post(`api/empresa/${this.user?._id}`, { title: this.formGroup?.get('title')?.value, description: this.formGroup?.get('description')?.value }).subscribe((res) => {
       console.log(res);
       this.resultBootcamp.emit({ cancel: true });
     });
   }
 
-  private saveBootcamp(): void {
-    this.bootcamService.post('api/empresa', { title: this.formGroup?.get('title')?.value, description: this.formGroup?.get('description')?.value, empresaid: this.user?._id }).subscribe((res) => {
+  public deleteBootcamp() {
+    this.bootcamService.delete(`api/empresa/${this.bootcamp?._id}`, true).subscribe((res) => {
       console.log(res);
-      this.resultBootcamp.emit({ cancel: true });
+      this.resultBootcamp.emit({ load: true });
+    }, error => {      
+      if (error.status === 200) {
+        this.resultBootcamp.emit({ load: true });
+      }
     });
+  }
+
+  public annotated(): void {
+    if (this.user) {
+      this.bootcamService.post(`api/user/${this.bootcamp?._id}` , { email: this.user.email }).subscribe(() =>{
+        this.resultBootcamp.emit({ load: true });
+      }, error => {
+        if (error.status === 201) {
+          this.resultBootcamp.emit({ load: true });
+        }
+      });
+    }
   }
 
 }

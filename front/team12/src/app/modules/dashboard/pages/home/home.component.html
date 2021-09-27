@@ -6,8 +6,8 @@
             <mat-button-toggle value="2">Mis bootcamps</mat-button-toggle>
             <!-- <mat-button-toggle value="3" *ngIf="isCompany">Crear bootcamp</mat-button-toggle> -->
         </mat-button-toggle-group>
-        <div class="home__actions__add">
-            <button mat-mini-fab type="button" *ngIf="isCompany" (click)="createBootcamp = true;"><mat-icon>add</mat-icon></button>
+        <div class="home__actions__add" *ngIf="isCompany">
+            <button mat-mini-fab type="button" (click)="createBootcamp = true;"><mat-icon>add</mat-icon></button>
             <label> Agregar bootcamp</label>
         </div>
     </div>
