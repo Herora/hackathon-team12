@@ -7,8 +7,9 @@ export interface IBootcamp {
     _id?: string;
     edit?: boolean;
     empresaid?: string;
-    email?: string;
-    users?: string[] | User[];
+    userId?: string;
+    users?: string[];
+    tempusers?: User[];
 }
 
 export class Bootcamp implements IBootcamp {
@@ -18,8 +19,9 @@ export class Bootcamp implements IBootcamp {
     empresa?: User;
     edit?: boolean;
     empresaid?: string;
-    email?: string;
-    users?: string[] | User[];
+    userId?: string;
+    users?: string[];
+    tempusers?: User[];
     constructor(bootcamp: IBootcamp) {
         this._id = bootcamp._id;
         this.title = bootcamp.title;

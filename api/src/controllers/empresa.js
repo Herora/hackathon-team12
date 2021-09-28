@@ -92,7 +92,7 @@ const EmpresaController = {
     .populate("users")
     .then((bootcamp) => {
       console.log(bootcamp)
-      res.send(bootcamp.users);
+      res.send(bootcamp);
     });
   }
 };

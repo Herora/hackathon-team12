@@ -17,8 +17,8 @@
             {{ bootcamp.description }}
         </p>
         <div class="bootcamp__content__annotated" *ngIf="!isCompany">
-            <button mat-button (click)="annotated()" *ngIf="!actions">Anotar</button>
-            <button mat-button (click)="annotated()" *ngIf="actions">Cancelar</button>
+            <button mat-button (click)="annotated()" *ngIf="!actions" [disabled]='annoted'>{{ annoted ? 'Anotado' : 'Anotar'}}</button>
+            <button mat-button *ngIf="actions" disabled>Cancelar</button>
         </div>
     </div>
     <form [formGroup]="formGroup" class="bootcamp__content" *ngIf="formGroup && ((bootcamp && bootcamp.edit) || create)">

@@ -20,6 +20,8 @@ export class BootcampComponent implements OnInit {
   public formGroup?: FormGroup;
   public isCompany = false;
 
+  public annoted = false;;
+
   constructor(private fb: FormBuilder,
     private bootcamService: BootcampService,
     private alertCustom: AlertsCustomService) {}
@@ -30,6 +32,8 @@ export class BootcampComponent implements OnInit {
     if (localUser) {
       this.user = JSON.parse(localUser);
     }
+    const test = this.bootcamp?.users?.filter( x => x === this.user?._id);
+    this.annoted = test ? test.length > 0 : false;
     if (this.create) {
       this.initFormGroup();
     }
@@ -95,7 +99,7 @@ export class BootcampComponent implements OnInit {
 
   public annotated(): void {
     if (this.user) {
-      this.bootcamService.post(`api/user/${this.bootcamp?._id}` , { email: this.user.email }).subscribe(() =>{
+      this.bootcamService.post(`api/user/${this.bootcamp?._id}` , { userId: this.user._id }).subscribe(() =>{
         this.resultBootcamp.emit({ load: true });
       }, error => {
         if (error.status === 201) {

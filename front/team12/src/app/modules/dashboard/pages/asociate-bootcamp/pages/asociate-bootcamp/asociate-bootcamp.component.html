@@ -1,18 +1,37 @@
 <div class="asociate">
     <h3 class="asociate__title">
-        Bootcamp
+        Usuarios registrados
     </h3>
     <div class="asociate__info">
         <h3 class="asociate__info__title">
             {{ data.title }}
         </h3>
-        <p class="asociate__info__description">
+        <!-- <p class="asociate__info__description">
             {{ data.description }}
-        </p>
+        </p> -->
     </div>
     <div class="asociate__containers">
-        <div class="asociate__containers__user">
-
+        <div class="asociate__containers__user" *ngFor="let user of data.tempusers">
+            <p class="name">
+                {{ user.name }}
+            </p>
+            <div class="content">
+                <div class="content__data">
+                    <span>email:</span>
+                    {{ user.email }}
+                </div>
+                <div class="content__data">
+                    <span>LinkedIn:</span>
+                    {{ user.linkedin }}
+                </div>
+                <div class="content__data">
+                    <span>Repositorio:</span>
+                    {{ user.repository }}
+                </div>
+                <div class="content__description">
+                    {{ user.description }}
+                </div>
+            </div>
         </div>
     </div>
 </div>

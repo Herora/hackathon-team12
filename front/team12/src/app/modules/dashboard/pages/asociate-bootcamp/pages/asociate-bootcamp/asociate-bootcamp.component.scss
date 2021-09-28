@@ -1,8 +1,70 @@
+@import "src/assets/styles/instance";
 .asociate {
     &__title {
         text-align: center;
         font-weight: 600;
         font-size: 24px;
         margin-top: 15px;
+        color: $c4;
+    }
+    &__info {
+        &__title {
+            text-align: center;
+            font-weight: 600;
+            color: $c4;
+        }
+    }
+    &__containers {
+        margin: 10px;
+        &__user {
+            @include border-radius(4px);
+            @include box-shadow(0px 1px 6px 0px rgba(0,0,0,0.4));
+            margin-bottom: 10px;
+            .name {
+                margin: 0;
+                background-color: $c2;
+                color: $c6;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @include border-radius(4px 4px 0 0);
+            }
+            .content {
+                // display: grid;
+                // gap: 10px;
+                &__data {
+                    padding-left: 10px;
+                    span {
+                        font-weight: 500;
+                    }
+                }
+                &__description {
+                    padding-left: 10px;
+                    border-top: 2px solid $c3;
+                    min-height: 30px;
+                }
+            }
+        }
+    }
+    @include brp($medium, min) {
+        &__containers {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 500px);
+            gap: 10px;
+            justify-content: center;
+            &__user {
+                margin-bottom: 0px;
+                .content {
+                    // grid-template-columns: repeat(2, calc(50% - 5px));
+                    &__data {
+    
+                    }
+                    &__description {
+                        grid-column: 1 / 3;
+                    }
+                }
+            }
+        }
     }
 }
